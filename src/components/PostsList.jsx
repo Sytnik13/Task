@@ -6,11 +6,17 @@ import {Grid} from 'react-bootstrap';
 import {Col} from 'react-bootstrap';
 import {Row} from 'react-bootstrap';
 
+
 export default class PostsList extends React.Component {
 
   handleNewCommentClick = (post) => {
-      console.log(this.refs);
+      if (this.props.logedStatus === false) {
+          this.refs[post].refs.input.value = '';
+          return;
+      }
+
       const postString = post + '';
+
       for (const refsItem in this.refs) {
           if (refsItem === postString) {
               const commentContent = this.refs[refsItem].getValue();
@@ -26,14 +32,14 @@ export default class PostsList extends React.Component {
     render() {
         return (
             <div>
-              { this.props.posts.map( post =>
+              { this.props.posts.posts.map( post =>
                 <div>
-                  <div><p>{this.props.userName + ': ' + post.content}</p></div>
+                  <div><p>{post.name + ': ' + post.content}</p></div>
                   <Row>
-                    <Col xs={4} md={4} mdOffset={1} xsOffset={1}>
+                    <Col xs={9} md={4} mdOffset={1} xsOffset={1}>
                           {post.comments.map( comment =>
                             <div>
-                              <p>{this.props.userName + ': ' + comment.content}</p>
+                              <p>{comment.name + ': ' + comment.content}</p>
                             </div>
                           )}
                           <Input

@@ -11,8 +11,11 @@ export default class NewPostForm extends React.Component {
     handleButtonClick = () => {
         const postName = this.refs.postNameInput.getValue();
 
-        if (!postName)
+        if (!postName || this.props.logedStatus === false) {
+            this.refs.postNameInput.refs.input.value = '';
             return;
+        }
+
         this.refs.postNameInput.refs.input.value = '';
         this.props.onSubmit(postName);
 
