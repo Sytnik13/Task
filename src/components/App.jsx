@@ -40,20 +40,34 @@ export default class App extends React.Component {
     };
 
     handleUserCreate = (userName) => {
-        this.state.users.push({name: userName});
+        let userLoged = false;
 
-        this.state[userName] = {
-            name: userName,
-            id: new Date().getTime(),
-            posts: []
-        };
+        for (const key in this.state) {
+            if (key === userName) {
+                this.state.loged = {
+                    id: this.state[userName].id,
+                    name: userName,
+                    login: true
+                };
+                console.log(key);
+                userLoged = true;
+            }
+        }
+        if (!userLoged) {
+            this.state.users.push({name: userName});
 
-        this.state.loged = {
-            id: this.state[userName].id,
-            name: userName,
-            login: true
-        };
+            this.state[userName] = {
+                name: userName,
+                id: new Date().getTime(),
+                posts: []
+            };
 
+            this.state.loged = {
+                id: this.state[userName].id,
+                name: userName,
+                login: true
+            };
+        }
         this.setState(this.state);
     }
 
