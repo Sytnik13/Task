@@ -49,7 +49,6 @@ export default class App extends React.Component {
                     name: userName,
                     login: true
                 };
-                console.log(key);
                 userLoged = true;
             }
         }
